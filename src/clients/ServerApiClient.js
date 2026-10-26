@@ -39,8 +39,21 @@ export class ServerApiClient {
   getHealthCheck = () => this.#client.get(`/api/health`);
 
   getNewsArticles = () => this.#client.get(`/api/news`);
+  createNewsArticle = (values) => this.#client.post(`/api/news`, values);
 
   getNewsArticle = (articleId) => this.#client.get(`/api/news/${articleId}`);
 
   getUserProfile = () => this.#client.get(`/api/users/profile`);
+  getAuthRoles = () => this.#client.get(`/api/users/roles`);
+  getAuthUsers = (name = undefined) =>
+    this.#client.get(`/api/users`, { params: { name } });
+  updateAuthUser = (userId, values) =>
+    this.#client.patch(`/api/users/${userId}`, values);
+
+  createAreaServerClaimCode = () =>
+    this.#client.post(`/api/areaservers/associations`);
+  getAreaServerClaimCodeStatus = (code) =>
+    this.#client.get(`/api/areaservers/associations`, { params: { code } });
+  getUserAreaServerAssociations = () => this.#client.get(`/api/users/areaservers`);
+  removeAreaServerAssociation = (associationId) => this.#client.delete(`/api/users/areaservers/${associationId}`, {associationId});
 }
